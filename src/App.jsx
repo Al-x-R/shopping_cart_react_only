@@ -5,6 +5,7 @@ import { ACTIONS, CART_KEY } from './constants';
 import AppContext from './AppContext';
 import * as API from './api';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Header from './components/Header';
 
 const ProductsLayout = lazy(() => import('./layouts/Products'));
 
@@ -58,6 +59,7 @@ const App = () => {
     <AppContext.Provider value={[state, dispatch]}>
       <Suspense fallback={<CircularProgress/>}>
         <Router>
+          <Header />
           <Switch>
             <Route exact path="/" component={ProductsLayout}/>
             {/*<Route path="/cart" component={} />*/}
