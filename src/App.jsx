@@ -6,6 +6,7 @@ import AppContext from './AppContext';
 import * as API from './api';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+const ProductsLayout = lazy(() => import('./layouts/Products'));
 
 
 const initialState = {
@@ -30,13 +31,36 @@ const App = () => {
     initializer,
   );
 
+  useEffect(() => {
+    dispatch({
+      type: ACTIONS.GET_PRODUCTS_REQUEST,
+    });
+    API.getAllProducts()
+      .then(({ data }) => {
+        dispatch({
+          type: ACTIONS.GET_PRODUCTS_SUCCESS,
+          payload: {
+            products: data,
+          },
+        });
+      }).catch(err => {
+      dispatch({
+        type: ACTIONS.GET_PRODUCTS_ERROR,
+        payload: {
+          error: err,
+        },
+      });
+    });
+
+  }, []);
+
   return (
     <AppContext.Provider value={[state, dispatch]}>
       <Suspense fallback={<CircularProgress/>}>
         <Router>
           <Switch>
-            <Route exact path="/" component={}/>
-            <Route path="/cart" component={} />
+            <Route exact path="/" component={ProductsLayout}/>
+            {/*<Route path="/cart" component={} />*/}
             <Router path="*" component={() => 'Not Found'}/>
           </Switch>
         </Router>
