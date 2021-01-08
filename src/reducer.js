@@ -35,7 +35,12 @@ const reducer = produce((draftState, action) => {
       };
     }
       break;
-    case ACTIONS.REMOVE_PRODUCT_TO_CART: {
+    case ACTIONS.REFRESH_PRODUCT_CART: {
+      const { id, quantity } = payload;
+      draftState.cart[id].quantity = quantity;
+    }
+      break;
+    case ACTIONS.REMOVE_PRODUCT_FROM_CART: {
       const { id } = payload;
       delete draftState.cart[id];
     }

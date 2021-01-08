@@ -8,6 +8,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Header from './components/Header';
 
 const ProductsLayout = lazy(() => import('./layouts/Products'));
+const CartLayout = lazy(() => import('./layouts/Cart'));
 
 
 const initialState = {
@@ -62,7 +63,7 @@ const App = () => {
           <Header />
           <Switch>
             <Route exact path="/" component={ProductsLayout}/>
-            {/*<Route path="/cart" component={} />*/}
+            <Route path="/cart" component={CartLayout} />
             <Router path="*" component={() => 'Not Found'}/>
           </Switch>
         </Router>
