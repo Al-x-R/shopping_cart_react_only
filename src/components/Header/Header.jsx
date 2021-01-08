@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext, useState, useLayoutEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -7,6 +8,7 @@ import { Link } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Badge from '@material-ui/core/Badge';
+import AppContext from '../../AppContext';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -25,15 +27,19 @@ const useStyles = makeStyles((theme) => ({
       display: 'block',
     },
   },
-  sectionDesktop: {
-    display: 'none',
-    [theme.breakpoints.up('md')]: {
-      display: 'flex',
-    },
-  },
 }));
 
 const Header = () => {
+  const [{ cart }] = useContext(AppContext);
+  const ids = Object.keys(cart).length;
+
+  const [isProducts, setIsProducts] = useState();
+  const location = useLocation();
+
+  useLayoutEffect(() => {
+    setIsProducts(location.pathname === '/');
+  }, [location.pathname]);
+
   const classes = useStyles();
 
   return (
@@ -46,14 +52,16 @@ const Header = () => {
                       variant="h6" noWrap>
             SOME SHOP
           </Typography>
-          <div className={classes.sectionDesktop}>
-            <IconButton component={Link}
-                        to={'/cart'}
-                        color="inherit">
-              <Badge badgeContent={4} color="secondary">
+          <div>
+            {
+              isProducts && <IconButton component={Link}
+                                       to={'/cart'}
+                                       color="inherit">
+              <Badge badgeContent={ids} color="secondary" showZero>
                 <ShoppingCartIcon/>
               </Badge>
             </IconButton>
+            }
           </div>
         </Toolbar>
       </AppBar>
