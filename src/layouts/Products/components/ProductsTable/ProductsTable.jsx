@@ -12,7 +12,7 @@ import AppContext from '../../../../AppContext';
 import useStyles from './styles';
 
 const ProductsTable = () => {
-  const [{ products }, dispatch] = useContext(AppContext);
+  const [{ products, cart }, dispatch] = useContext(AppContext);
 
   const classes = useStyles();
 
@@ -34,7 +34,7 @@ const ProductsTable = () => {
               </TableCell>
               <TableCell align="center">{price} $</TableCell>
               <TableCell align="right">{
-                <Button onClick={() => {
+                <Button disabled={id in cart} onClick={() => {
                   dispatch({
                     type: ACTIONS.ADD_PRODUCT_TO_CART,
                     payload: {

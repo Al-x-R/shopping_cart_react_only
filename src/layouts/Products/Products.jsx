@@ -26,7 +26,7 @@ function Products() {
 
   return (
     <AppContext.Provider value={[state, dispatch]}>
-      <ProductsTable products={products} />
+      <ProductsTable />
     </AppContext.Provider>
   );
 }

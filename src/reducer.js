@@ -1,17 +1,13 @@
+/* eslint-disable no-param-reassign */
 import produce from 'immer';
 import { ACTIONS } from './constants';
 
-
 const reducer = produce((draftState, action) => {
   const { type, payload } = action;
-  console.group('REDUCER');
-  console.log(action);
-  console.groupEnd();
-
+  // eslint-disable-next-line default-case
   switch (type) {
-    case ACTIONS.GET_PRODUCTS_REQUEST: {
+    case ACTIONS.GET_PRODUCTS_REQUEST:
       draftState.isLoading = true;
-    }
       break;
     case ACTIONS.GET_PRODUCTS_SUCCESS: {
       const { products } = payload;
@@ -31,7 +27,7 @@ const reducer = produce((draftState, action) => {
       const product = products[index];
       draftState.cart[product.id] = {
         quantity: 1,
-        product: products[index]
+        product: products[index],
       };
     }
       break;
@@ -45,17 +41,14 @@ const reducer = produce((draftState, action) => {
       delete draftState.cart[id];
     }
       break;
-    case ACTIONS.CONFIRM_ERROR: {
+    case ACTIONS.CONFIRM_ERROR:
       draftState.error = null;
-    }
       break;
     case ACTIONS.SET_PRODUCT_CART_QUANTITY: {
       const { id, quantity } = payload;
-      console.log(" CHECK: ", quantity, Number(quantity))
       draftState.cart[id].quantity = Number(quantity);
     }
       break;
-
   }
 });
 
