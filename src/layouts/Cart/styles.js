@@ -15,7 +15,7 @@ const useStyles = makeStyles({
     border: '2px solid black'
   },
   qtyField: {
-    width: '50px'
+    width: '50px',
   }
 });
 

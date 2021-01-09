@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import AppContext from '../../AppContext';
 import { ACTIONS } from '../../constants';
 import TableHead from '@material-ui/core/TableHead';
@@ -25,23 +25,24 @@ const Cart = () => {
   };
 
   function sum(a, b) {
-    return (a * b).toFixed(2);
+    return (Number(a) * Number(b)).toFixed(2);
   }
 
-  let totalPrice;
+  let totalCartSum;
   if (ids.length > 0) {
-    totalPrice = ids.map(id => cart[id].product.price)
-      .reduce((a, b) => a + b).toFixed(2);
+    totalCartSum = ids.map(id => cart[id].product.price * cart[id].quantity)
+      .reduce((a, b) => a + b)
+      .toFixed(2);
   }
 
   const discount = ids.map(id => {
-    return Math.trunc(cart[id].quantity / 3) * (cart[id].product.price * (discountValueInPercents / 100));
+    return Math.trunc(Number(cart[id].quantity) / 3) * (cart[id].product.price * (discountValueInPercents / 100));
   });
 
   const totalSum = ids.length > 0
-    ? (totalPrice - discount.reduce((a, b) => a + b))
+    ? (totalCartSum - discount.reduce((a, b) => a + b))
       .toFixed(2)
-    : totalPrice;
+    : totalCartSum;
 
   const pageTitle = (ids.length === 0)
     ? 'Your cart is empty'
@@ -75,7 +76,7 @@ const Cart = () => {
                 <TextField
                   className={classes.qtyField}
                   onChange={handlerQty}
-                  defaultValue={cart[id].quantity}
+                  defaultValue={Number(cart[id].quantity)}
                   type='number'
                   id="standard-number"
                   InputLabelProps={{
@@ -89,7 +90,7 @@ const Cart = () => {
                     type: ACTIONS.SET_PRODUCT_CART_QUANTITY,
                     payload: {
                       id,
-                      qty,
+                      quantity: qty,
                     },
                   });
                 }}
@@ -116,7 +117,7 @@ const Cart = () => {
             <TableCell/>
             <TableCell/>
             <TableCell align="left">Total:</TableCell>
-            <TableCell align="center">{totalPrice} $</TableCell>
+            <TableCell align="center">{totalCartSum} $</TableCell>
             <TableCell/>
           </TableRow>
           <TableRow>

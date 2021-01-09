@@ -51,6 +51,7 @@ const reducer = produce((draftState, action) => {
       break;
     case ACTIONS.SET_PRODUCT_CART_QUANTITY: {
       const { id, quantity } = payload;
+      console.log(" CHECK: ", quantity, Number(quantity))
       draftState.cart[id].quantity = Number(quantity);
     }
       break;
