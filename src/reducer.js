@@ -4,10 +4,7 @@ import { ACTIONS } from './constants';
 
 const reducer = produce((draftState, action) => {
   const { type, payload } = action;
-  console.group('REDUCER');
-  console.log(action);
-  console.groupEnd();
-
+  // eslint-disable-next-line default-case
   switch (type) {
     case ACTIONS.GET_PRODUCTS_REQUEST: {
       draftState.isLoading = true;

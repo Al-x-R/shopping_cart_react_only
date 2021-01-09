@@ -6,7 +6,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import TableBody from '@material-ui/core/TableBody';
 import Table from '@material-ui/core/Table';
-
+import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
 import CachedOutlinedIcon from '@material-ui/icons/CachedOutlined';
@@ -52,7 +52,7 @@ const Cart = () => {
 
   return (
     <div className={classes.root}>
-      <h1 className={classes.title}>{pageTitle}</h1>
+      <Typography className={classes.title}>{pageTitle}</Typography>
       {ids.length > 0 &&
       <Table className={classes.table}>
         <TableHead>
