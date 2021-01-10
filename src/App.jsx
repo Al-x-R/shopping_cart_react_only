@@ -31,6 +31,8 @@ const App = () => {
     initializer,
   );
 
+  useEffect(() => localStorage.setItem(CART_KEY, JSON.stringify(state.cart)), [state.cart]);
+
   useEffect(() => {
     dispatch({
       type: ACTIONS.GET_PRODUCTS_REQUEST,
