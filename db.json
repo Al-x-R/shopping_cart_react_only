@@ -3,17 +3,23 @@
     {
       "id": 1,
       "name": "банан",
-      "price": 10
+      "price": 10,
+      "discount": null
     },
     {
       "id": 2,
       "name": "яблоко",
-      "price": 8
+      "price": 8,
+      "discount": null
     },
     {
       "id": 3,
       "name": "папайя",
-      "price": 10
+      "price": 10,
+      "discount": {
+        "name": "",
+        "description": ""
+      }
     }
   ]
 }
