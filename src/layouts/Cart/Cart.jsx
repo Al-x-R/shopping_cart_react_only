@@ -37,16 +37,26 @@ const Cart = () => {
       const discount = Math.trunc(Number(qty) / 3) *
         (price * (discountValueInPercents / 100));
 
-      return price * qty - discount;
-    }
+      return  price * qty - discount;
 
-    return price * qty;
+    }
+    return  price * qty;
   }
 
-  //TODO refactor
-  const totalOrderPrice = useMemo(() => ids.reduce((total, id) => total + (
-    cart[id].product.price * cart[id].quantity
-  ), 0).toFixed(2), [ids]);
+  const totalOrderPrice = useMemo(() => ids.map((id) => {
+    const { quantity, product } = cart[id];
+    const totalPrice = quantity * product.price;
+
+    if (product.discount) {
+      return totalPrice - (
+        Math.trunc(quantity / 3) * (
+          product.price * (discountValueInPercents / 100)
+        )
+      );
+    }
+
+    return totalPrice;
+  }).reduce((total, price) => total + price, 0).toFixed(2), [ids]);
 
 
   const pageTitle = (
@@ -92,7 +102,8 @@ const Cart = () => {
                 >{cart[id].quantity}</TextField>
               </TableCell>
               <TableCell
-                align="center">{sum(cart[id].product.price, cart[id].quantity, cart[id].product.name)}
+                align="center">
+               {sum(cart[id].product.price, cart[id].quantity, cart[id].product.name)}
               </TableCell>
               <TableCell align="center">
                 <DeleteOutlinedIcon onClick={() => {
