@@ -8,11 +8,11 @@ import { ACTIONS } from '../../constants';
 function Products() {
 
   const [state, dispatch] = useContext(AppContext);
-  const { isLoading, products, error } = state;
+  const { isLoading, error } = state;
 
 
   if (error) {
-    window.confirm(JSON.stringify(error));
+    window.confirm('if you see this you need \nnpm run start-json-server \nfor start dev server');
     dispatch({
       type: ACTIONS.CONFIRM_ERROR
     });
